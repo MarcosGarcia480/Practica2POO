@@ -10,12 +10,12 @@ public class Main {
         boolean salida = false;
         final int NUMERO_OPCIONES = 7;
 
-        System.out.println("====================");
-        System.out.println("=    BIENVENIDO    =");
-        System.out.println("====================");
+        System.out.println("           ====================           ");
+        System.out.println("           =    BIENVENIDO    =           ");
+        System.out.println("           ====================           ");
 
         while (!salida) {
-            System.out.println("=========================================");
+            System.out.println("==========================================");
             System.out.println("Selecione una de las siguientes opciones:");
             System.out.println("1. Registrar entrada.");
             System.out.println("2. Registrar salida.");
@@ -24,11 +24,11 @@ public class Main {
             System.out.println("5. Comienza mes.");
             System.out.println("6. Pagos de residentes.");
             System.out.println("7. Salir.");
-            System.out.println("=========================================");
+            System.out.println("==========================================");
             String input = scanner.next();
             int opcion;
             try {
-                opcion = Integer.parseInt(input);
+                opcion = Integer.parseInt(input.trim());
                 if (opcion > NUMERO_OPCIONES || opcion < 1) {
                     System.out.println("Opción no disponible, por favor intente de nuevo.");
                 } else {
