@@ -25,31 +25,40 @@ public class Main {
             System.out.println("6. Pagos de residentes.");
             System.out.println("7. Salir.");
             System.out.println("=========================================");
-            int opcion = scanner.nextInt();
-            if (opcion > NUMERO_OPCIONES || opcion < 1) {
-                System.out.println("Opción no disponible, por favor intente de nuevo.");
-            } else {
-                switch (opcion) {
-                    case 1 :
-                        System.out.println("Introduzca la matricula del vehículo: ");
-                        String matricula = scanner.next();
-                        parking.agregarVehiculo(new Vehiculo(matricula));
-                        break;
-                    case 2 :
-                        break;
-                    case 3 :
-                        break;
-                    case 4 :
-                        break;
-                    case 5 :
-                        break;
-                    case 6 :
-                        break;
-                    case 7 :
-                        System.out.println("¡Hasta la próxima!");
-                        salida = true;
-                        break;
+            String input = scanner.next();
+            int opcion;
+            try {
+                opcion = Integer.parseInt(input);
+                if (opcion > NUMERO_OPCIONES || opcion < 1) {
+                    System.out.println("Opción no disponible, por favor intente de nuevo.");
+                } else {
+                    String mensajeMatricula = "Introduzca la matricula del vehículo: ";
+                    switch (opcion) {
+                        case 1 :
+                            System.out.println(mensajeMatricula);
+                            break;
+                        case 2 :
+                            System.out.println(mensajeMatricula);
+                            break;
+                        case 3 :
+                            System.out.println(mensajeMatricula);
+                            break;
+                        case 4 :
+                            System.out.println(mensajeMatricula);
+                            break;
+                        case 5 :
+                            break;
+                        case 6 :
+                            break;
+                        case 7 :
+                            System.out.println("¡Hasta la próxima!");
+                            salida = true;
+                            break;
+                    }
                 }
+            } catch (NumberFormatException ex) {
+                System.err.println("No se permiten letras o caracteres especiales.");
+                System.out.println("Por favor introduzca un numero entre 1 y " + NUMERO_OPCIONES);
             }
         }
     }
