@@ -37,30 +37,56 @@ public class Parking {
         eliminarVehiculosOficiales();
     }
 
-    private void revisarVehiculoOficial(String matricula) {
+    private void revisarSiEsVehiculoOficial(String matricula) {
         for (VehiculoOficial vehiculoOficial : vehiculosOficiales) {
             if (vehiculoOficial.getMatricula().equals(matricula)) {
                 vehiculosEnParking.add(new VehiculoOficial(matricula));
+                System.out.println("El vehículo es oficial.");
+            } else {
+                System.out.println("El vehículo no es oficial.");
             }
         }
     }
 
-    private void revisarVehiculoResidente(String matricula) {
+    private void revisarSiEsVehiculoResidente(String matricula) {
         for (VehiculoResidente vehiculoResidente : vehiculosResidentes) {
             if (vehiculoResidente.getMatricula().equals(matricula)) {
                 vehiculosEnParking.add(new VehiculoResidente(matricula));
+                System.out.println("El vehículo es residente.");
+            } else {
+                System.out.println("El vehículo no es residente.");
+            }
+        }
+    }
+
+    private void revisarVehiculoEnParking(String matricula) {
+        if (vehiculosEnParking.isEmpty()) {
+            vehiculosEnParking.add(new Vehiculo(matricula));
+            System.out.println("El vehículo se ha registrado con éxito");
+        } else {
+            for (Vehiculo vehiculo : vehiculosEnParking) {
+                if (!vehiculo.getMatricula().equals(matricula)) {
+                    vehiculosEnParking.add(new Vehiculo(matricula));
+                    System.out.println("El vehículo se ha registrado con éxito");
+                } else {
+                    System.out.println("Este vehiculo ya está en el parking.");
+                }
             }
         }
     }
 
     public void agregarVehiculo(String matricula) {
-        revisarVehiculoOficial(matricula);
-        revisarVehiculoResidente(matricula);
-
+        revisarSiEsVehiculoOficial(matricula);
+        revisarSiEsVehiculoResidente(matricula);
+        revisarVehiculoEnParking(matricula);
     }
 
     public List<VehiculoOficial> getVehiculosOficiales() {
         return vehiculosOficiales;
+    }
+
+    public void setVehiculosEnParking(List<Vehiculo> vehiculosEnParking) {
+        this.vehiculosEnParking = vehiculosEnParking;
     }
 
     public List<Vehiculo> getVehiculosEnParking() {

@@ -8,6 +8,7 @@ public class Vehiculo {
     public Vehiculo(String matricula) {
         this.matricula = matricula;
         registros = new ArrayList<>();
+        registros.add(new Registro());
     }
 
     public List<Registro> getRegistros() {
@@ -23,7 +24,7 @@ public class Vehiculo {
     }
 
     public void registrarSalida() {
-        registros.get(registros.size()).registrarSalida();
+        registros.get(registros.size() - 1).registrarSalida();
     }
 
     @Override

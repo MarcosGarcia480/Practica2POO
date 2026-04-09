@@ -1,6 +1,7 @@
 import Parking.*;
 import Vehiculos.Vehiculo;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
@@ -32,25 +33,29 @@ public class Main {
                 if (opcion > NUMERO_OPCIONES || opcion < 1) {
                     System.out.println("Opción no disponible, por favor intente de nuevo.");
                 } else {
-                    String mensajeMatricula = "Introduzca la matrícula del vehículo: ";
+                    String mensajeMatricula = "Introduzca la matrícula del vehículo sin espacios: ";
                     switch (opcion) {
                         case 1 :
                             System.out.println(mensajeMatricula);
                             String matricula = scanner.next();
                             parking.agregarVehiculo(matricula);
-
                             break;
                         case 2 :
                             System.out.println(mensajeMatricula);
                             matricula = scanner.next();
-                            for (Vehiculo vehiculo : parking.getVehiculosEnParking()) {
+                            List<Vehiculo> nuevosVehiculos = parking.getVehiculosEnParking();
+                            String mensaje = "";
+                            for (Vehiculo vehiculo : nuevosVehiculos) {
                                 if (vehiculo.getMatricula().equals(matricula)) {
                                     vehiculo.registrarSalida();
-                                    parking.getVehiculosEnParking().remove(vehiculo);
+                                    nuevosVehiculos.remove(vehiculo);
+                                    parking.setVehiculosEnParking(nuevosVehiculos);
+                                    mensaje = "Salida registrada con éxito.";
                                     break;
                                 }
+                                mensaje = "Matrícula no reconocida, por favor inténtelo de nuevo";
                             }
-                            System.out.println("Matrícula no reconocida, por favor inténtelo de nuevo");
+                            System.out.println(mensaje);
                             break;
                         case 3 :
                             System.out.println(mensajeMatricula);
