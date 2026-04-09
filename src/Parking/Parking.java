@@ -37,6 +37,16 @@ public class Parking {
         eliminarVehiculosOficiales();
     }
 
+    public void altaVehiculoOficial(String matricula) {
+        vehiculosOficiales.add(new VehiculoOficial(matricula));
+        System.out.println("El vehículo oficial se ha registrado con éxito.");
+    }
+
+    public void altaVehiculoResidente(String matricula) {
+        vehiculosResidentes.add(new VehiculoResidente(matricula));
+        System.out.println("El vehículo residente se ha registrado con éxito.");
+    }
+
     private void revisarSiEsVehiculoOficial(String matricula) {
         for (VehiculoOficial vehiculoOficial : vehiculosOficiales) {
             if (vehiculoOficial.getMatricula().equals(matricula)) {

@@ -59,9 +59,13 @@ public class Main {
                             break;
                         case 3 :
                             System.out.println(mensajeMatricula);
+                            matricula = scanner.next();
+                            parking.altaVehiculoOficial(matricula);
                             break;
                         case 4 :
                             System.out.println(mensajeMatricula);
+                            matricula = scanner.next();
+                            parking.altaVehiculoResidente(matricula);
                             break;
                         case 5 :
                             break;
