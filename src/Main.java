@@ -1,5 +1,5 @@
-import Parking.Parking;
-import Vehiculos.*;
+import Parking.*;
+import Vehiculos.Vehiculo;
 
 import java.util.Scanner;
 
@@ -32,13 +32,25 @@ public class Main {
                 if (opcion > NUMERO_OPCIONES || opcion < 1) {
                     System.out.println("Opción no disponible, por favor intente de nuevo.");
                 } else {
-                    String mensajeMatricula = "Introduzca la matricula del vehículo: ";
+                    String mensajeMatricula = "Introduzca la matrícula del vehículo: ";
                     switch (opcion) {
                         case 1 :
                             System.out.println(mensajeMatricula);
+                            String matricula = scanner.next();
+                            parking.agregarVehiculo(matricula);
+
                             break;
                         case 2 :
                             System.out.println(mensajeMatricula);
+                            matricula = scanner.next();
+                            for (Vehiculo vehiculo : parking.getVehiculosEnParking()) {
+                                if (vehiculo.getMatricula().equals(matricula)) {
+                                    vehiculo.registrarSalida();
+                                    parking.getVehiculosEnParking().remove(vehiculo);
+                                    break;
+                                }
+                            }
+                            System.out.println("Matrícula no reconocida, por favor inténtelo de nuevo");
                             break;
                         case 3 :
                             System.out.println(mensajeMatricula);

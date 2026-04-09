@@ -10,7 +10,8 @@ public class VehiculoNoResidente extends VehiculoPaga implements IImporte {
     }
 
     @Override
-    void registrarSalida() {
+    public void registrarSalida() {
+        super.registrarSalida();
         getImporte(calcularMinutosUltimoRegistro());
     }
 

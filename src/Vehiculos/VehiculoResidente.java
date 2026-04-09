@@ -11,7 +11,8 @@ public class VehiculoResidente extends VehiculoPaga {
     }
 
     @Override
-    void registrarSalida() {
+    public void registrarSalida() {
+        super.registrarSalida();
         this.minutosEnParking += calcularMinutosUltimoRegistro();
     }
 
