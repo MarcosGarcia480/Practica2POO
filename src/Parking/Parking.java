@@ -47,48 +47,64 @@ public class Parking {
         System.out.println("El vehículo residente se ha registrado con éxito.");
     }
 
-    private void revisarSiEsVehiculoOficial(String matricula) {
-        for (VehiculoOficial vehiculoOficial : vehiculosOficiales) {
-            if (vehiculoOficial.getMatricula().equals(matricula)) {
-                vehiculosEnParking.add(new VehiculoOficial(matricula));
-                System.out.println("El vehículo es oficial.");
-            } else {
-                System.out.println("El vehículo no es oficial.");
-            }
-        }
-    }
-
-    private void revisarSiEsVehiculoResidente(String matricula) {
-        for (VehiculoResidente vehiculoResidente : vehiculosResidentes) {
-            if (vehiculoResidente.getMatricula().equals(matricula)) {
-                vehiculosEnParking.add(new VehiculoResidente(matricula));
-                System.out.println("El vehículo es residente.");
-            } else {
-                System.out.println("El vehículo no es residente.");
-            }
-        }
-    }
-
-    private void revisarVehiculoEnParking(String matricula) {
+    private boolean esVehiculoOficial(String matricula) {
+        boolean esOficial = false;
         if (vehiculosEnParking.isEmpty()) {
-            vehiculosEnParking.add(new Vehiculo(matricula));
-            System.out.println("El vehículo se ha registrado con éxito");
+            return esOficial;
         } else {
-            for (Vehiculo vehiculo : vehiculosEnParking) {
-                if (!vehiculo.getMatricula().equals(matricula)) {
-                    vehiculosEnParking.add(new Vehiculo(matricula));
-                    System.out.println("El vehículo se ha registrado con éxito");
-                } else {
-                    System.out.println("Este vehiculo ya está en el parking.");
+            for (VehiculoOficial vehiculoOficial : vehiculosOficiales) {
+                if (vehiculoOficial.getMatricula().equals(matricula)) {
+                    esOficial = true;
+                    return esOficial;
                 }
             }
         }
+        return esOficial;
+    }
+
+    private boolean esVehiculoResidente(String matricula) {
+        boolean esResidente = false;
+        if (vehiculosEnParking.isEmpty()) {
+            return esResidente;
+        } else {
+            for (VehiculoResidente vehiculoResidente : vehiculosResidentes) {
+                if (vehiculoResidente.getMatricula().equals(matricula)) {
+                    esResidente = true;
+                    return esResidente;
+                }
+            }
+        }
+        return esResidente;
+    }
+
+    private boolean estaVehiculoEnParking(String matricula) {
+        boolean estaEnParking = true;
+        if (vehiculosEnParking.isEmpty()) {
+            estaEnParking = false;
+        } else {
+            for (Vehiculo vehiculo : vehiculosEnParking) {
+                if (!vehiculo.getMatricula().equals(matricula)) {
+                    estaEnParking = false;
+                }
+            }
+        }
+        return estaEnParking;
     }
 
     public void agregarVehiculo(String matricula) {
-        revisarSiEsVehiculoOficial(matricula);
-        revisarSiEsVehiculoResidente(matricula);
-        revisarVehiculoEnParking(matricula);
+        Vehiculo vehiculo = new VehiculoNoResidente(matricula);
+        if (esVehiculoOficial(matricula)) {
+            vehiculo = new VehiculoOficial(matricula);
+            System.out.println("Este vehículo es oficial.");
+        } else if (esVehiculoResidente(matricula)) {
+            vehiculo = new VehiculoResidente(matricula);
+            System.out.println("Este vehículo es residente.");
+        } else if (estaVehiculoEnParking(matricula)) {
+            System.out.println("El vehículo ya está en el parking.");
+        } else {
+            vehiculosEnParking.add(vehiculo);
+            System.out.println("Entrada registrada con éxito, vehículo: " + vehiculo.getMatricula());
+        }
     }
 
     public List<VehiculoOficial> getVehiculosOficiales() {

@@ -7,6 +7,6 @@ public abstract class VehiculoPaga extends Vehiculo {
     }
 
     public int calcularMinutosUltimoRegistro() {
-        return getRegistros().get(getRegistros().size()).calcularMinutos();
+        return getRegistros().get(getRegistros().size() - 1).calcularMinutos();
     }
 }
