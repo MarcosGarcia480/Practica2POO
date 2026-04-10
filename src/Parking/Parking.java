@@ -24,11 +24,10 @@ public class Parking {
     private void reiniciarMinutosVehiculos() {
         for (VehiculoResidente v : vehiculosResidentes) {
             v.setMinutosEnParking(0);
-            v.eliminarRegistros();
         }
     }
 
-    private void eliminarVehiculosOficiales() {
+    private void eliminarRegistrosVehiculosOficiales() {
         for (VehiculoOficial v : vehiculosOficiales) {
             v.eliminarRegistros();
         }
@@ -36,7 +35,7 @@ public class Parking {
 
     public void procesarInicioMes() {
         reiniciarMinutosVehiculos();
-        eliminarVehiculosOficiales();
+        eliminarRegistrosVehiculosOficiales();
     }
 
     public void altaVehiculoOficial(String matricula) {
@@ -136,5 +135,9 @@ public class Parking {
 
     public List<Vehiculo> getVehiculosEnParking() {
         return vehiculosEnParking;
+    }
+
+    public InformeResidente getInformeResidente() {
+        return informeResidente;
     }
 }

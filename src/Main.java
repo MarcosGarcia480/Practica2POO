@@ -1,6 +1,7 @@
 import Parking.*;
 import Vehiculos.Vehiculo;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -68,8 +69,22 @@ public class Main {
                             parking.altaVehiculoResidente(matricula);
                             break;
                         case 5 :
+                            parking.procesarInicioMes();
+                            System.out.println("Se restablecido el tiempo de los residentes y eliminado los oficiales.");
                             break;
                         case 6 :
+                            System.out.println("Introduzca el nombre del archivo que desea generar: ");
+                            StringBuilder nombreArchivo = new StringBuilder();
+                            while (!scanner.hasNext()) {
+                                nombreArchivo.append(scanner.next());
+                            }
+                            try {
+                                parking.getInformeResidente().generarInforme(nombreArchivo.toString());
+                                System.out.println("El archivo se ha generado con éxito.");
+                            } catch (IOException e) {
+                                System.err.println("Ha habido un error inesperado durante la " +
+                                        "generación del archivo: " + e.getMessage());
+                            }
                             break;
                         case 7 :
                             System.out.println("¡Hasta la próxima!");
