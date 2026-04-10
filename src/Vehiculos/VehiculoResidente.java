@@ -19,4 +19,13 @@ public class VehiculoResidente extends VehiculoPaga {
     public void setMinutosEnParking(int minutosEnParking) {
         this.minutosEnParking = minutosEnParking;
     }
+
+    public double getCostoTotal() {
+        return minutosEnParking * COSTO_POR_MINUTO;
+    }
+
+    @Override
+    public String toString() {
+        return getMatricula() + "   " + minutosEnParking + "   " + getCostoTotal();
+    }
 }

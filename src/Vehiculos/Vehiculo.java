@@ -27,6 +27,10 @@ public class Vehiculo {
         registros.get(registros.size() - 1).registrarSalida();
     }
 
+    public void agregarRegistro() {
+        registros.add(new Registro());
+    }
+
     @Override
     public String toString() {
         return matricula;

@@ -7,11 +7,13 @@ public class Parking {
     private List<VehiculoOficial> vehiculosOficiales;
     private List<VehiculoResidente> vehiculosResidentes;
     private List<Vehiculo> vehiculosEnParking;
+    private InformeResidente informeResidente;
 
     private Parking() {
         vehiculosOficiales = new ArrayList<>();
         vehiculosResidentes = new ArrayList<>();
         vehiculosEnParking = new ArrayList<>();
+        informeResidente = new InformeResidente(vehiculosResidentes);
     }
 
     private static Parking instance = new Parking();
@@ -91,19 +93,36 @@ public class Parking {
         return estaEnParking;
     }
 
+    private void agregarRegistroVehiculoOficial(String matricula) {
+        if (esVehiculoOficial(matricula)) {
+            for (VehiculoOficial vehiculoOficial : vehiculosOficiales) {
+                if (vehiculoOficial.getMatricula().equals(matricula)) {
+                    vehiculoOficial.agregarRegistro();
+                }
+            }
+        }
+    }
+
+    private void agregarRegistroVehiculoResidente(String matricula) {
+        if (esVehiculoResidente(matricula)) {
+            for (VehiculoResidente vehiculoResidente : vehiculosResidentes) {
+                if (vehiculoResidente.getMatricula().equals(matricula)) {
+                    vehiculoResidente.agregarRegistro();
+                }
+            }
+        }
+    }
+
     public void agregarVehiculo(String matricula) {
         Vehiculo vehiculo = new VehiculoNoResidente(matricula);
         if (esVehiculoOficial(matricula)) {
-            vehiculo = new VehiculoOficial(matricula);
-            System.out.println("Este vehículo es oficial.");
+            agregarRegistroVehiculoOficial(matricula);
         } else if (esVehiculoResidente(matricula)) {
-            vehiculo = new VehiculoResidente(matricula);
-            System.out.println("Este vehículo es residente.");
+            agregarRegistroVehiculoResidente(matricula);
         } else if (estaVehiculoEnParking(matricula)) {
             System.out.println("El vehículo ya está en el parking.");
         } else {
             vehiculosEnParking.add(vehiculo);
-            System.out.println("Entrada registrada con éxito, vehículo: " + vehiculo.getMatricula());
         }
     }
 
