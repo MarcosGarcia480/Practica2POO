@@ -4,16 +4,16 @@ import Vehiculos.*;
 import java.util.*;
 
 public class Parking {
-    private List<VehiculoOficial> vehiculosOficiales;
-    private List<VehiculoResidente> vehiculosResidentes;
-    private List<Vehiculo> vehiculosEnParking;
-    private InformeResidente informeResidente;
+    private List<OfficialVehicle> officialVehicles;
+    private List<ResidentVehicle> residentVehicles;
+    private List<Vehicle> vehiclesInParking;
+    private ResidentReport residentReport;
 
     private Parking() {
-        vehiculosOficiales = new ArrayList<>();
-        vehiculosResidentes = new ArrayList<>();
-        vehiculosEnParking = new ArrayList<>();
-        informeResidente = new InformeResidente(vehiculosResidentes);
+        officialVehicles = new ArrayList<>();
+        residentVehicles = new ArrayList<>();
+        vehiclesInParking = new ArrayList<>();
+        residentReport = new ResidentReport(residentVehicles);
     }
 
     private static Parking instance = new Parking();
@@ -21,143 +21,143 @@ public class Parking {
         return instance;
     }
 
-    private void reiniciarMinutosVehiculos() {
-        for (VehiculoResidente v : vehiculosResidentes) {
-            v.setMinutosEnParking(0);
+    private void restartVehicleMinutes() {
+        for (ResidentVehicle v : residentVehicles) {
+            v.setMinutesInParking(0);
         }
     }
 
-    private void eliminarRegistrosVehiculosOficiales() {
-        for (VehiculoOficial v : vehiculosOficiales) {
-            v.eliminarRegistros();
+    private void deleteOfficialVehicleRegisters() {
+        for (OfficialVehicle v : officialVehicles) {
+            v.deleteReports();
         }
     }
 
-    public void procesarInicioMes() {
-        reiniciarMinutosVehiculos();
-        eliminarRegistrosVehiculosOficiales();
+    public void processMonthStart() {
+        restartVehicleMinutes();
+        deleteOfficialVehicleRegisters();
     }
 
-    public void altaVehiculoOficial(String matricula) {
-        vehiculosOficiales.add(new VehiculoOficial(matricula));
-        System.out.println("El vehículo oficial se ha registrado con éxito.");
+    public void registerOfficialVehicle(String plateNumber) {
+        officialVehicles.add(new OfficialVehicle(plateNumber));
+        System.out.println("The official vehicle has been registered successfully.");
     }
 
-    public void altaVehiculoResidente(String matricula) {
-        vehiculosResidentes.add(new VehiculoResidente(matricula));
-        System.out.println("El vehículo residente se ha registrado con éxito.");
+    public void registerResidentVehicle(String plateNumber) {
+        residentVehicles.add(new ResidentVehicle(plateNumber));
+        System.out.println("The resident vehicle has been registered successfully.");
     }
 
-    private boolean esVehiculoOficial(String matricula) {
-        boolean esOficial = false;
-        if (vehiculosOficiales.isEmpty()) {
-            return esOficial;
+    private boolean isOfficialVehicle(String plateNumber) {
+        boolean isOficial = false;
+        if (officialVehicles.isEmpty()) {
+            return isOficial;
         } else {
-            for (VehiculoOficial vehiculoOficial : vehiculosOficiales) {
-                if (vehiculoOficial.getMatricula().equals(matricula)) {
-                    esOficial = true;
+            for (OfficialVehicle officialVehicle : officialVehicles) {
+                if (officialVehicle.getPlateNumber().equals(plateNumber)) {
+                    isOficial = true;
                     break;
                 }
             }
         }
-        return esOficial;
+        return isOficial;
     }
 
-    private boolean esVehiculoResidente(String matricula) {
-        boolean esResidente = false;
-        if (vehiculosResidentes.isEmpty()) {
-            return esResidente;
+    private boolean isResidentVehicle(String plateNumber) {
+        boolean isResident = false;
+        if (residentVehicles.isEmpty()) {
+            return isResident;
         } else {
-            for (VehiculoResidente vehiculoResidente : vehiculosResidentes) {
-                if (vehiculoResidente.getMatricula().equals(matricula)) {
-                    esResidente = true;
+            for (ResidentVehicle residentVehicle : residentVehicles) {
+                if (residentVehicle.getPlateNumber().equals(plateNumber)) {
+                    isResident = true;
                     break;
                 }
             }
         }
-        return esResidente;
+        return isResident;
     }
 
-    private boolean estaVehiculoEnParking(String matricula) {
-        boolean estaEnParking = false;
-        if (vehiculosEnParking.isEmpty()) {
-            return estaEnParking;
+    private boolean isVehicleInParking(String plateNumber) {
+        boolean isInParking = false;
+        if (vehiclesInParking.isEmpty()) {
+            return isInParking;
         } else {
-            for (Vehiculo vehiculo : vehiculosEnParking) {
-                if (vehiculo.getMatricula().equals(matricula)) {
-                    estaEnParking = true;
+            for (Vehicle vehicle : vehiclesInParking) {
+                if (vehicle.getPlateNumber().equals(plateNumber)) {
+                    isInParking = true;
                     break;
                 }
             }
         }
-        return estaEnParking;
+        return isInParking;
     }
 
-    private void agregarRegistroVehiculoOficial(String matricula) {
-        if (esVehiculoOficial(matricula)) {
-            for (VehiculoOficial vehiculoOficial : vehiculosOficiales) {
-                if (vehiculoOficial.getMatricula().equals(matricula)) {
-                    vehiculoOficial.agregarRegistro();
+    private void addReportOfficialVehicle(String plateNumber) {
+        if (isOfficialVehicle(plateNumber)) {
+            for (OfficialVehicle officialVehicle : officialVehicles) {
+                if (officialVehicle.getPlateNumber().equals(plateNumber)) {
+                    officialVehicle.addReport();
                 }
             }
         }
     }
 
-    private void agregarRegistroVehiculoResidente(String matricula) {
-        if (esVehiculoResidente(matricula)) {
-            for (VehiculoResidente vehiculoResidente : vehiculosResidentes) {
-                if (vehiculoResidente.getMatricula().equals(matricula)) {
-                    vehiculoResidente.agregarRegistro();
+    private void addReportResidentVehicle(String plateNumber) {
+        if (isResidentVehicle(plateNumber)) {
+            for (ResidentVehicle residentVehicle : residentVehicles) {
+                if (residentVehicle.getPlateNumber().equals(plateNumber)) {
+                    residentVehicle.addReport();
                 }
             }
         }
     }
 
-    public void agregarVehiculo(String matricula) {
-        Vehiculo vehiculo = new VehiculoNoResidente(matricula);
-        if (esVehiculoOficial(matricula) && !estaVehiculoEnParking(matricula)) {
-            agregarRegistroVehiculoOficial(matricula);
-            vehiculo = new VehiculoOficial(matricula);
-            System.out.println("Este vehículo es oficial.");
+    public void addVehicle(String plateNumber) {
+        Vehicle vehicle = new NonResidentVehicle(plateNumber);
+        if (isOfficialVehicle(plateNumber) && !isVehicleInParking(plateNumber)) {
+            addReportOfficialVehicle(plateNumber);
+            vehicle = new OfficialVehicle(plateNumber);
+            System.out.println("This is an official vehicle.");
         }
-        if (esVehiculoResidente(matricula) && !estaVehiculoEnParking(matricula)) {
-            agregarRegistroVehiculoResidente(matricula);
-            vehiculo = new VehiculoResidente(matricula);
-            System.out.println("Este vehículo es residente.");
+        if (isResidentVehicle(plateNumber) && !isVehicleInParking(plateNumber)) {
+            addReportResidentVehicle(plateNumber);
+            vehicle = new ResidentVehicle(plateNumber);
+            System.out.println("This is a resident vehicle.");
         }
-        if (estaVehiculoEnParking(matricula)) {
-            System.out.println("El vehículo ya está en el parking.");
+        if (isVehicleInParking(plateNumber)) {
+            System.out.println("This vehicle is already in the parking.");
             return;
         }
-        vehiculosEnParking.add(vehiculo);
-        System.out.println("El vehículo se ha añadido correctamente.");
+        vehiclesInParking.add(vehicle);
+        System.out.println("The vehicle has been added successfully.");
     }
 
-    public List<VehiculoOficial> getVehiculosOficiales() {
-        return vehiculosOficiales;
+    public List<OfficialVehicle> getOfficialVehicles() {
+        return officialVehicles;
     }
 
-    public void eliminarVehiculo(String matricula) {
-        if (vehiculosEnParking.isEmpty()) {
-            System.out.println("El parking ya está vacio.");
+    public void deleteVehicle(String plateNumber) {
+        if (vehiclesInParking.isEmpty()) {
+            System.out.println("The parking is already empty.");
             return;
         }
-        List<Vehiculo> nuevosVehiculos = vehiculosEnParking;
-        String mensaje = "";
-        for (Vehiculo vehiculo : nuevosVehiculos) {
-            if (vehiculo.getMatricula().equals(matricula)) {
-                vehiculo.registrarSalida();
-                nuevosVehiculos.remove(vehiculo);
-                vehiculosEnParking = nuevosVehiculos;
-                mensaje = "Salida registrada con éxito.";
+        List<Vehicle> newVehicles = vehiclesInParking;
+        String message = "";
+        for (Vehicle vehicle : newVehicles) {
+            if (vehicle.getPlateNumber().equals(plateNumber)) {
+                vehicle.reportExit();
+                newVehicles.remove(vehicle);
+                vehiclesInParking = newVehicles;
+                message = "Exit reported successfully.";
                 break;
             }
-            mensaje = "Matrícula no reconocida, por favor inténtelo de nuevo";
+            message = "Unidentified plate number, please try again.";
         }
-        System.out.println(mensaje);
+        System.out.println(message);
     }
 
-    public InformeResidente getInformeResidente() {
-        return informeResidente;
+    public ResidentReport getResidentReport() {
+        return residentReport;
     }
 }

@@ -1,86 +1,81 @@
 import Parking.*;
-import Vehiculos.Vehiculo;
-
 import java.io.IOException;
-import java.util.List;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
         Parking parking = Parking.getInstance();
         Scanner scanner = new Scanner(System.in);
-        boolean salida = false;
-        final int NUMERO_OPCIONES = 7;
+        boolean exit = false;
+        final int OPTIONS_NUMBER = 7;
 
-        System.out.println("           ====================           ");
-        System.out.println("           =    BIENVENIDO    =           ");
-        System.out.println("           ====================           ");
+        System.out.println("            =====================            ");
+        System.out.println("            =      WELCOME      =            ");
+        System.out.println("            =====================            ");
 
-        while (!salida) {
-            System.out.println("==========================================");
-            System.out.println("Selecione una de las siguientes opciones:");
-            System.out.println("1. Registrar entrada.");
-            System.out.println("2. Registrar salida.");
-            System.out.println("3. Dar de alta vehículo oficial.");
-            System.out.println("4. Dar de alta vehículo de residente.");
-            System.out.println("5. Comienza mes.");
-            System.out.println("6. Pagos de residentes.");
-            System.out.println("7. Salir.");
-            System.out.println("==========================================");
+        while (!exit) {
+            System.out.println("===========================================");
+            System.out.println("Please select one of the following options: ");
+            System.out.println("1. Report entry.");
+            System.out.println("2. Report exit.");
+            System.out.println("3. Register official vehicle.");
+            System.out.println("4. Register resident vehicle.");
+            System.out.println("5. Month start.");
+            System.out.println("6. Resident payments.");
+            System.out.println("7. Exit.");
+            System.out.println("===========================================");
             String input = scanner.next();
             int opcion;
             try {
                 opcion = Integer.parseInt(input.trim());
-                if (opcion > NUMERO_OPCIONES || opcion < 1) {
-                    System.out.println("Opción no disponible, por favor intente de nuevo.");
+                if (opcion > OPTIONS_NUMBER || opcion < 1) {
+                    System.out.println("This option isn't available, try again.");
                 } else {
-                    String mensajeMatricula = "Introduzca la matrícula del vehículo sin espacios: ";
+                    String plateMessage = "Write the plate number without  blank spaces: ";
                     switch (opcion) {
                         case 1 :
-                            System.out.println(mensajeMatricula);
-                            String matriculaCase1 = scanner.next();
-                            parking.agregarVehiculo(matriculaCase1);
+                            System.out.println(plateMessage);
+                            String plateNumberCase1 = scanner.next();
+                            parking.addVehicle(plateNumberCase1);
                             break;
                         case 2 :
-                            System.out.println(mensajeMatricula);
-                            String matriculaCase2 = scanner.next();
-                            parking.eliminarVehiculo(matriculaCase2);
+                            System.out.println(plateMessage);
+                            String plateNumberCase2 = scanner.next();
+                            parking.deleteVehicle(plateNumberCase2);
                             break;
                         case 3 :
-                            System.out.println(mensajeMatricula);
-                            String matriculaCase3 = scanner.next();
-                            parking.altaVehiculoOficial(matriculaCase3);
+                            System.out.println(plateMessage);
+                            String plateNumberCase3 = scanner.next();
+                            parking.registerOfficialVehicle(plateNumberCase3);
                             break;
                         case 4 :
-                            System.out.println(mensajeMatricula);
-                            String matriculaCase4 = scanner.next();
-                            parking.altaVehiculoResidente(matriculaCase4);
+                            System.out.println(plateMessage);
+                            String plateNumberCase4 = scanner.next();
+                            parking.registerResidentVehicle(plateNumberCase4);
                             break;
                         case 5 :
-                            parking.procesarInicioMes();
-                            System.out.println("Se ha restablecido el tiempo de los residentes y eliminado los oficiales.");
+                            parking.processMonthStart();
+                            System.out.println("The time of the residents has been reestablished and the official's register has been eliminated.");
                             break;
                         case 6 :
-                            System.out.println("Introduzca el nombre del archivo que desea generar: ");
-                            String nombreArchivo = "";
-                            nombreArchivo = scanner.next();
+                            System.out.println("Write the name of the file you want to create: ");
+                            String fileName = scanner.next();
                             try {
-                                parking.getInformeResidente().generarInforme(nombreArchivo);
-                                System.out.println("El archivo se ha generado con éxito.");
+                                parking.getResidentReport().generateReport(fileName);
+                                System.out.println("The file has been successfully created.");
                             } catch (IOException e) {
-                                System.err.println("Ha habido un error inesperado durante la " +
-                                        "generación del archivo: " + e.getMessage());
+                                System.err.println("An unexpected error occurred during the file generation:  " + e.getMessage());
                             }
                             break;
                         case 7 :
-                            System.out.println("¡Hasta la próxima!");
-                            salida = true;
+                            System.out.println("See you!");
+                            exit = true;
                             break;
                     }
                 }
             } catch (NumberFormatException ex) {
-                System.err.println("No se permiten letras o caracteres especiales.");
-                System.out.println("Por favor introduzca un numero entre 1 y " + NUMERO_OPCIONES);
+                System.err.println("Letters or special characters are not allowed.");
+                System.out.println("Please write a number between 1 and " + OPTIONS_NUMBER);
             }
         }
     }
