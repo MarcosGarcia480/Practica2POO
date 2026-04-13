@@ -21,40 +21,7 @@ public class Parking {
         return instance;
     }
 
-    private void restartVehicleMinutes() {
-        for (ResidentVehicle v : residentVehicles) {
-            v.setMinutesInParking(0);
-        }
-    }
-
-    private void deleteOfficialVehicleRegisters() {
-        for (Vehicle v : officialVehicles) {
-            v.deleteReports();
-        }
-    }
-
-    public void processMonthStart() {
-        restartVehicleMinutes();
-        deleteOfficialVehicleRegisters();
-    }
-
-    public void registerOfficialVehicle(String plateNumber) {
-        if (isOfficialVehicle(plateNumber)) {
-            System.out.println("This vehicle has already been registered.");
-        } else {
-            officialVehicles.add(new OfficialVehicle(plateNumber));
-            System.out.println("The official vehicle has been registered successfully.");
-        }
-    }
-
-    public void registerResidentVehicle(String plateNumber) {
-        if (isResidentVehicle(plateNumber)) {
-            System.out.println("This vehicle has already been registered.");
-        }
-        residentVehicles.add(new ResidentVehicle(plateNumber));
-        System.out.println("The resident vehicle has been registered successfully.");
-    }
-
+    // Option 1
     private boolean isOfficialVehicle(String plateNumber) {
         boolean isOficial = false;
         if (officialVehicles.isEmpty()) {
@@ -140,6 +107,7 @@ public class Parking {
         System.out.println("The vehicle has been added successfully.");
     }
 
+    // Option 2
     public void deleteVehicle(String plateNumber) {
         if (vehiclesInParking.isEmpty()) {
             System.out.println("The parking is already empty.");
@@ -160,6 +128,44 @@ public class Parking {
         System.out.println(message);
     }
 
+    // Option 3
+    public void registerOfficialVehicle(String plateNumber) {
+        if (isOfficialVehicle(plateNumber)) {
+            System.out.println("This vehicle has already been registered.");
+        } else {
+            officialVehicles.add(new OfficialVehicle(plateNumber));
+            System.out.println("The official vehicle has been registered successfully.");
+        }
+    }
+
+    // Option 4
+    public void registerResidentVehicle(String plateNumber) {
+        if (isResidentVehicle(plateNumber)) {
+            System.out.println("This vehicle has already been registered.");
+        }
+        residentVehicles.add(new ResidentVehicle(plateNumber));
+        System.out.println("The resident vehicle has been registered successfully.");
+    }
+
+    // Option 5
+    private void restartVehicleMinutes() {
+        for (ResidentVehicle v : residentVehicles) {
+            v.setMinutesInParking(0);
+        }
+    }
+
+    private void deleteOfficialVehicleRegisters() {
+        for (Vehicle v : officialVehicles) {
+            v.deleteReports();
+        }
+    }
+
+    public void processMonthStart() {
+        restartVehicleMinutes();
+        deleteOfficialVehicleRegisters();
+    }
+
+    // Option 6
     public ResidentReport getResidentReport() {
         return residentReport;
     }
