@@ -137,12 +137,24 @@ public class Parking {
         return vehiculosOficiales;
     }
 
-    public void setVehiculosEnParking(List<Vehiculo> vehiculosEnParking) {
-        this.vehiculosEnParking = vehiculosEnParking;
-    }
-
-    public List<Vehiculo> getVehiculosEnParking() {
-        return vehiculosEnParking;
+    public void eliminarVehiculo(String matricula) {
+        if (vehiculosEnParking.isEmpty()) {
+            System.out.println("El parking ya está vacio.");
+            return;
+        }
+        List<Vehiculo> nuevosVehiculos = vehiculosEnParking;
+        String mensaje = "";
+        for (Vehiculo vehiculo : nuevosVehiculos) {
+            if (vehiculo.getMatricula().equals(matricula)) {
+                vehiculo.registrarSalida();
+                nuevosVehiculos.remove(vehiculo);
+                vehiculosEnParking = nuevosVehiculos;
+                mensaje = "Salida registrada con éxito.";
+                break;
+            }
+            mensaje = "Matrícula no reconocida, por favor inténtelo de nuevo";
+        }
+        System.out.println(mensaje);
     }
 
     public InformeResidente getInformeResidente() {

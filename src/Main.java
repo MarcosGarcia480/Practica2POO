@@ -44,19 +44,7 @@ public class Main {
                         case 2 :
                             System.out.println(mensajeMatricula);
                             String matriculaCase2 = scanner.next();
-                            List<Vehiculo> nuevosVehiculos = parking.getVehiculosEnParking();
-                            String mensaje = "";
-                            for (Vehiculo vehiculo : nuevosVehiculos) {
-                                if (vehiculo.getMatricula().equals(matriculaCase2)) {
-                                    vehiculo.registrarSalida();
-                                    nuevosVehiculos.remove(vehiculo);
-                                    parking.setVehiculosEnParking(nuevosVehiculos);
-                                    mensaje = "Salida registrada con éxito.";
-                                    break;
-                                }
-                                mensaje = "Matrícula no reconocida, por favor inténtelo de nuevo";
-                            }
-                            System.out.println(mensaje);
+                            parking.eliminarVehiculo(matriculaCase2);
                             break;
                         case 3 :
                             System.out.println(mensajeMatricula);
