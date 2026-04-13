@@ -1,4 +1,4 @@
-package Vehiculos;
+package Vehicles;
 
 public abstract class PayVehicle extends Vehicle {
 

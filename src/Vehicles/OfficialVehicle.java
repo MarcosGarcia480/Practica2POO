@@ -1,4 +1,4 @@
-package Vehiculos;
+package Vehicles;
 
 public class OfficialVehicle extends Vehicle {
 

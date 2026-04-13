@@ -1,4 +1,4 @@
-package Vehiculos;
+package Vehicles;
 
 import java.time.LocalDateTime;
 

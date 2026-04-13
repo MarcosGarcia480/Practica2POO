@@ -1,4 +1,4 @@
-package Vehiculos;
+package Vehicles;
 
 public class ResidentVehicle extends PayVehicle {
     private static final double COST_PER_MINUTE = 0.002;

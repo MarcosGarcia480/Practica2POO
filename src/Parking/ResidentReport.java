@@ -1,6 +1,6 @@
 package Parking;
 
-import Vehiculos.ResidentVehicle;
+import Vehicles.ResidentVehicle;
 import java.io.*;
 import java.util.List;
 import java.util.Scanner;

@@ -1,6 +1,6 @@
 package Parking;
 
-import Vehiculos.*;
+import Vehicles.*;
 import java.util.*;
 
 public class Parking {
