@@ -13,6 +13,7 @@ public class VehiculoNoResidente extends VehiculoPaga implements IImporte {
     public void registrarSalida() {
         super.registrarSalida();
         getImporte(calcularMinutosUltimoRegistro());
+        System.out.println("Cuota abonada de: " + getImporte(calcularMinutosUltimoRegistro()) + "€");
     }
 
     @Override

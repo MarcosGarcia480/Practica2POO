@@ -50,7 +50,7 @@ public class Parking {
 
     private boolean esVehiculoOficial(String matricula) {
         boolean esOficial = false;
-        if (vehiculosEnParking.isEmpty()) {
+        if (vehiculosOficiales.isEmpty()) {
             return esOficial;
         } else {
             for (VehiculoOficial vehiculoOficial : vehiculosOficiales) {
@@ -65,7 +65,7 @@ public class Parking {
 
     private boolean esVehiculoResidente(String matricula) {
         boolean esResidente = false;
-        if (vehiculosEnParking.isEmpty()) {
+        if (vehiculosResidentes.isEmpty()) {
             return esResidente;
         } else {
             for (VehiculoResidente vehiculoResidente : vehiculosResidentes) {
@@ -116,13 +116,18 @@ public class Parking {
         Vehiculo vehiculo = new VehiculoNoResidente(matricula);
         if (esVehiculoOficial(matricula)) {
             agregarRegistroVehiculoOficial(matricula);
-        } else if (esVehiculoResidente(matricula)) {
-            agregarRegistroVehiculoResidente(matricula);
-        } else if (estaVehiculoEnParking(matricula)) {
-            System.out.println("El vehículo ya está en el parking.");
-        } else {
-            vehiculosEnParking.add(vehiculo);
+            vehiculo = new VehiculoOficial(matricula);
+            System.out.println("Este vehículo es oficial.");
         }
+        if (esVehiculoResidente(matricula)) {
+            agregarRegistroVehiculoResidente(matricula);
+            vehiculo = new VehiculoResidente(matricula);
+            System.out.println("Este vehículo es residente.");
+        }
+        if (estaVehiculoEnParking(matricula)) {
+            System.out.println("El vehículo ya está en el parking.");
+        }
+        vehiculosEnParking.add(vehiculo);
     }
 
     public List<VehiculoOficial> getVehiculosOficiales() {

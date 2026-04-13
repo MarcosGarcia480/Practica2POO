@@ -70,16 +70,14 @@ public class Main {
                             break;
                         case 5 :
                             parking.procesarInicioMes();
-                            System.out.println("Se restablecido el tiempo de los residentes y eliminado los oficiales.");
+                            System.out.println("Se ha restablecido el tiempo de los residentes y eliminado los oficiales.");
                             break;
                         case 6 :
                             System.out.println("Introduzca el nombre del archivo que desea generar: ");
-                            StringBuilder nombreArchivo = new StringBuilder();
-                            while (!scanner.hasNext()) {
-                                nombreArchivo.append(scanner.next());
-                            }
+                            String nombreArchivo = "";
+                            nombreArchivo = scanner.next();
                             try {
-                                parking.getInformeResidente().generarInforme(nombreArchivo.toString());
+                                parking.getInformeResidente().generarInforme(nombreArchivo);
                                 System.out.println("El archivo se ha generado con éxito.");
                             } catch (IOException e) {
                                 System.err.println("Ha habido un error inesperado durante la " +

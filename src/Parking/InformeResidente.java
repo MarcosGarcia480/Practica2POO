@@ -16,12 +16,14 @@ public class InformeResidente {
     public void generarInforme(String nombre) throws IOException {
         Scanner scanner = null;
         PrintWriter output = null;
+        File archivo = new File("./" + nombre + ".txt");
 
         try {
             scanner = new Scanner(new BufferedReader(new StringReader(vehiculos.toString())));
-            output = new PrintWriter(new FileWriter(nombre));
+            output = new PrintWriter(new FileWriter(archivo));
+
             output.println("Matrícula   Tiempo estacionado (min.)   Cantidad a pagar");
-            scanner.useDelimiter(",\\s*");
+            scanner.useDelimiter(", ");
             while (scanner.hasNext()) {
                 output.println(scanner.next());
             }
