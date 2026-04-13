@@ -4,13 +4,13 @@ import Vehicles.*;
 import java.util.*;
 
 public class Parking {
-    private List<OfficialVehicle> officialVehicles;
+    private List<Vehicle> officialVehicles;
     private List<ResidentVehicle> residentVehicles;
     private List<Vehicle> vehiclesInParking;
     private ResidentReport residentReport;
 
     private Parking() {
-        officialVehicles = new ArrayList<>();
+        officialVehicles = new ArrayList<Vehicle>();
         residentVehicles = new ArrayList<>();
         vehiclesInParking = new ArrayList<>();
         residentReport = new ResidentReport(residentVehicles);
@@ -28,7 +28,7 @@ public class Parking {
     }
 
     private void deleteOfficialVehicleRegisters() {
-        for (OfficialVehicle v : officialVehicles) {
+        for (Vehicle v : officialVehicles) {
             v.deleteReports();
         }
     }
@@ -39,11 +39,18 @@ public class Parking {
     }
 
     public void registerOfficialVehicle(String plateNumber) {
-        officialVehicles.add(new OfficialVehicle(plateNumber));
-        System.out.println("The official vehicle has been registered successfully.");
+        if (isOfficialVehicle(plateNumber)) {
+            System.out.println("This vehicle has already been registered.");
+        } else {
+            officialVehicles.add(new OfficialVehicle(plateNumber));
+            System.out.println("The official vehicle has been registered successfully.");
+        }
     }
 
     public void registerResidentVehicle(String plateNumber) {
+        if (isResidentVehicle(plateNumber)) {
+            System.out.println("This vehicle has already been registered.");
+        }
         residentVehicles.add(new ResidentVehicle(plateNumber));
         System.out.println("The resident vehicle has been registered successfully.");
     }
@@ -53,7 +60,7 @@ public class Parking {
         if (officialVehicles.isEmpty()) {
             return isOficial;
         } else {
-            for (OfficialVehicle officialVehicle : officialVehicles) {
+            for (Vehicle officialVehicle : officialVehicles) {
                 if (officialVehicle.getPlateNumber().equals(plateNumber)) {
                     isOficial = true;
                     break;
@@ -95,7 +102,7 @@ public class Parking {
 
     private void addReportOfficialVehicle(String plateNumber) {
         if (isOfficialVehicle(plateNumber)) {
-            for (OfficialVehicle officialVehicle : officialVehicles) {
+            for (Vehicle officialVehicle : officialVehicles) {
                 if (officialVehicle.getPlateNumber().equals(plateNumber)) {
                     officialVehicle.addReport();
                 }
@@ -131,10 +138,6 @@ public class Parking {
         }
         vehiclesInParking.add(vehicle);
         System.out.println("The vehicle has been added successfully.");
-    }
-
-    public List<OfficialVehicle> getOfficialVehicles() {
-        return officialVehicles;
     }
 
     public void deleteVehicle(String plateNumber) {

@@ -31,7 +31,7 @@ public class Main {
                 if (opcion > OPTIONS_NUMBER || opcion < 1) {
                     System.out.println("This option isn't available, try again.");
                 } else {
-                    String plateMessage = "Write the plate number without  blank spaces: ";
+                    String plateMessage = "Write the plate number without blank spaces: ";
                     switch (opcion) {
                         case 1 :
                             System.out.println(plateMessage);
