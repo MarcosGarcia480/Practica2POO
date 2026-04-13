@@ -38,16 +38,16 @@ public class Main {
                     switch (opcion) {
                         case 1 :
                             System.out.println(mensajeMatricula);
-                            String matricula = scanner.next();
-                            parking.agregarVehiculo(matricula);
+                            String matriculaCase1 = scanner.next();
+                            parking.agregarVehiculo(matriculaCase1);
                             break;
                         case 2 :
                             System.out.println(mensajeMatricula);
-                            matricula = scanner.next();
+                            String matriculaCase2 = scanner.next();
                             List<Vehiculo> nuevosVehiculos = parking.getVehiculosEnParking();
                             String mensaje = "";
                             for (Vehiculo vehiculo : nuevosVehiculos) {
-                                if (vehiculo.getMatricula().equals(matricula)) {
+                                if (vehiculo.getMatricula().equals(matriculaCase2)) {
                                     vehiculo.registrarSalida();
                                     nuevosVehiculos.remove(vehiculo);
                                     parking.setVehiculosEnParking(nuevosVehiculos);
@@ -60,13 +60,13 @@ public class Main {
                             break;
                         case 3 :
                             System.out.println(mensajeMatricula);
-                            matricula = scanner.next();
-                            parking.altaVehiculoOficial(matricula);
+                            String matriculaCase3 = scanner.next();
+                            parking.altaVehiculoOficial(matriculaCase3);
                             break;
                         case 4 :
                             System.out.println(mensajeMatricula);
-                            matricula = scanner.next();
-                            parking.altaVehiculoResidente(matricula);
+                            String matriculaCase4 = scanner.next();
+                            parking.altaVehiculoResidente(matriculaCase4);
                             break;
                         case 5 :
                             parking.procesarInicioMes();

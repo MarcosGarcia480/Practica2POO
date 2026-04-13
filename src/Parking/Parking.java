@@ -56,7 +56,7 @@ public class Parking {
             for (VehiculoOficial vehiculoOficial : vehiculosOficiales) {
                 if (vehiculoOficial.getMatricula().equals(matricula)) {
                     esOficial = true;
-                    return esOficial;
+                    break;
                 }
             }
         }
@@ -71,7 +71,7 @@ public class Parking {
             for (VehiculoResidente vehiculoResidente : vehiculosResidentes) {
                 if (vehiculoResidente.getMatricula().equals(matricula)) {
                     esResidente = true;
-                    return esResidente;
+                    break;
                 }
             }
         }
@@ -79,13 +79,14 @@ public class Parking {
     }
 
     private boolean estaVehiculoEnParking(String matricula) {
-        boolean estaEnParking = true;
+        boolean estaEnParking = false;
         if (vehiculosEnParking.isEmpty()) {
-            estaEnParking = false;
+            return estaEnParking;
         } else {
             for (Vehiculo vehiculo : vehiculosEnParking) {
-                if (!vehiculo.getMatricula().equals(matricula)) {
-                    estaEnParking = false;
+                if (vehiculo.getMatricula().equals(matricula)) {
+                    estaEnParking = true;
+                    break;
                 }
             }
         }
@@ -114,20 +115,22 @@ public class Parking {
 
     public void agregarVehiculo(String matricula) {
         Vehiculo vehiculo = new VehiculoNoResidente(matricula);
-        if (esVehiculoOficial(matricula)) {
+        if (esVehiculoOficial(matricula) && !estaVehiculoEnParking(matricula)) {
             agregarRegistroVehiculoOficial(matricula);
             vehiculo = new VehiculoOficial(matricula);
             System.out.println("Este vehículo es oficial.");
         }
-        if (esVehiculoResidente(matricula)) {
+        if (esVehiculoResidente(matricula) && !estaVehiculoEnParking(matricula)) {
             agregarRegistroVehiculoResidente(matricula);
             vehiculo = new VehiculoResidente(matricula);
             System.out.println("Este vehículo es residente.");
         }
         if (estaVehiculoEnParking(matricula)) {
             System.out.println("El vehículo ya está en el parking.");
+            return;
         }
         vehiculosEnParking.add(vehiculo);
+        System.out.println("El vehículo se ha añadido correctamente.");
     }
 
     public List<VehiculoOficial> getVehiculosOficiales() {
