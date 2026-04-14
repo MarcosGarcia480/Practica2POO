@@ -55,7 +55,6 @@ public class Main {
                         } catch (IOException e) {
                             System.err.println("An unexpected error occurred during the file generation:  " + e.getMessage());
                         }
-                        scanner.reset();
                         break;
                     case 7 :
                         System.out.println("See you!");
