@@ -21,20 +21,23 @@ public class Parking {
         return instance;
     }
 
-    // Option 1
-    private boolean isOfficialVehicle(String plateNumber) {
-        boolean isOficial = false;
-        if (officialVehicles.isEmpty()) {
-            return isOficial;
+    private boolean isVehicleInList(List<Vehicle> vehicles, String plateNumber) {
+        boolean isInList = false;
+        if (vehicles.isEmpty()) {
+            return isInList;
         } else {
-            for (Vehicle officialVehicle : officialVehicles) {
-                if (officialVehicle.getPlateNumber().equals(plateNumber)) {
-                    isOficial = true;
+            for (Vehicle vehicle : vehicles) {
+                if (vehicle.getPlateNumber().equals(plateNumber)) {
+                    isInList = true;
                     break;
                 }
             }
         }
-        return isOficial;
+        return isInList;
+    }
+    // Option 1
+    private boolean isOfficialVehicle(String plateNumber) {
+        return isVehicleInList(officialVehicles, plateNumber);
     }
 
     private boolean isResidentVehicle(String plateNumber) {
@@ -89,19 +92,19 @@ public class Parking {
 
     public void addVehicle(String plateNumber) {
         Vehicle vehicle = new NonResidentVehicle(plateNumber);
-        if (isOfficialVehicle(plateNumber) && !isVehicleInParking(plateNumber)) {
+        if (isVehicleInParking(plateNumber)) {
+            System.out.println("This vehicle is already in the parking.");
+            return;
+        }
+        if (isOfficialVehicle(plateNumber)) {
             addReportOfficialVehicle(plateNumber);
             vehicle = new OfficialVehicle(plateNumber);
             System.out.println("This is an official vehicle.");
         }
-        if (isResidentVehicle(plateNumber) && !isVehicleInParking(plateNumber)) {
+        if (isResidentVehicle(plateNumber)) {
             addReportResidentVehicle(plateNumber);
             vehicle = new ResidentVehicle(plateNumber);
             System.out.println("This is a resident vehicle.");
-        }
-        if (isVehicleInParking(plateNumber)) {
-            System.out.println("This vehicle is already in the parking.");
-            return;
         }
         vehiclesInParking.add(vehicle);
         System.out.println("The vehicle has been added successfully.");
