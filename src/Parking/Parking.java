@@ -85,7 +85,7 @@ public class Parking {
             System.out.println("This is a resident vehicle.");
         }
         vehiclesInParking.add(vehicle);
-        System.out.println("The vehicle has been added successfully.");
+        System.out.println("The entry has been reported successfully.");
     }
 
     // Option 2

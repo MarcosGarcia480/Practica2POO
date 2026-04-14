@@ -27,6 +27,7 @@ public class Main {
             System.out.println("7. Exit.");
             System.out.println("===========================================");
             try {
+                scanner.useDelimiter("\n");
                 int option = scanner.nextInt();
                 switch (option) {
                     case 1 :
@@ -47,13 +48,14 @@ public class Main {
                         break;
                     case 6 :
                         System.out.println("Write the name of the file you want to create: ");
-                        String fileName = scanner.nextLine();
+                        String fileName = scanner.next();
                         try {
                             parking.getResidentReport().generateReport(fileName);
                             System.out.println("The file has been successfully created.");
                         } catch (IOException e) {
                             System.err.println("An unexpected error occurred during the file generation:  " + e.getMessage());
                         }
+                        scanner.reset();
                         break;
                     case 7 :
                         System.out.println("See you!");
@@ -64,7 +66,7 @@ public class Main {
                         break;
                     }
             } catch (InputMismatchException ex) {
-                System.err.println("Letters or special characters are not allowed.");
+                System.err.println("Letters, blank spaces or special characters are not allowed.");
                 System.out.println("Please write a number between 1 and " + OPTIONS_NUMBER);
                 scanner.next();
             }
@@ -73,7 +75,7 @@ public class Main {
     }
 
     public static String askForPlateNumber(Scanner scanner) {
-        System.out.println("Write the plate number without blank spaces: ");
+        System.out.println("Write the plate number and press enter: ");
         return scanner.next();
     }
 }
