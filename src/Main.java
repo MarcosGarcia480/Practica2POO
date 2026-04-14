@@ -5,10 +5,11 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
+        final int OPTIONS_NUMBER = 7;
+
         Parking parking = Parking.getInstance();
         Scanner scanner = new Scanner(System.in);
         boolean exit = false;
-        final int OPTIONS_NUMBER = 7;
 
         System.out.println("            =====================            ");
         System.out.println("            =      WELCOME      =            ");
@@ -27,35 +28,26 @@ public class Main {
             System.out.println("===========================================");
             try {
                 int option = scanner.nextInt();
-                String plateMessage = "Write the plate number without blank spaces: ";
                 switch (option) {
                     case 1 :
-                        System.out.println(plateMessage);
-                        String plateNumberCase1 = scanner.next();
-                        parking.addVehicle(plateNumberCase1);
+                        parking.addVehicle(askForPlateNumber(scanner));
                         break;
                     case 2 :
-                        System.out.println(plateMessage);
-                        String plateNumberCase2 = scanner.next();
-                        parking.deleteVehicle(plateNumberCase2);
+                        parking.deleteVehicle(askForPlateNumber(scanner));
                         break;
                     case 3 :
-                        System.out.println(plateMessage);
-                        String plateNumberCase3 = scanner.next();
-                        parking.registerOfficialVehicle(plateNumberCase3);
+                        parking.registerOfficialVehicle(askForPlateNumber(scanner));
                         break;
                     case 4 :
-                        System.out.println(plateMessage);
-                        String plateNumberCase4 = scanner.next();
-                        parking.registerResidentVehicle(plateNumberCase4);
+                        parking.registerResidentVehicle(askForPlateNumber(scanner));
                         break;
                     case 5 :
                         parking.processMonthStart();
-                        System.out.println("The time of the residents has been reestablished and the official's register has been eliminated.");
+                        System.out.println("The time of the residents has been reestablished and the official's registers has been eliminated.");
                         break;
                     case 6 :
                         System.out.println("Write the name of the file you want to create: ");
-                        String fileName = scanner.next();
+                        String fileName = scanner.nextLine();
                         try {
                             parking.getResidentReport().generateReport(fileName);
                             System.out.println("The file has been successfully created.");
@@ -78,5 +70,10 @@ public class Main {
             }
         }
         scanner.close();
+    }
+
+    public static String askForPlateNumber(Scanner scanner) {
+        System.out.println("Write the plate number without blank spaces: ");
+        return scanner.next();
     }
 }
