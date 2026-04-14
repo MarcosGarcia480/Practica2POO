@@ -5,13 +5,13 @@ import java.util.*;
 
 public class Parking {
     private List<Vehicle> officialVehicles;
-    private List<ResidentVehicle> residentVehicles;
+    private List<Vehicle> residentVehicles;
     private List<Vehicle> vehiclesInParking;
     private ResidentReport residentReport;
 
     private Parking() {
         officialVehicles = new ArrayList<Vehicle>();
-        residentVehicles = new ArrayList<>();
+        residentVehicles = new ArrayList<Vehicle>();
         vehiclesInParking = new ArrayList<>();
         residentReport = new ResidentReport(residentVehicles);
     }
@@ -41,52 +41,30 @@ public class Parking {
     }
 
     private boolean isResidentVehicle(String plateNumber) {
-        boolean isResident = false;
-        if (residentVehicles.isEmpty()) {
-            return isResident;
-        } else {
-            for (ResidentVehicle residentVehicle : residentVehicles) {
-                if (residentVehicle.getPlateNumber().equals(plateNumber)) {
-                    isResident = true;
-                    break;
-                }
-            }
-        }
-        return isResident;
+        return isVehicleInList(residentVehicles, plateNumber);
     }
 
     private boolean isVehicleInParking(String plateNumber) {
-        boolean isInParking = false;
-        if (vehiclesInParking.isEmpty()) {
-            return isInParking;
-        } else {
-            for (Vehicle vehicle : vehiclesInParking) {
-                if (vehicle.getPlateNumber().equals(plateNumber)) {
-                    isInParking = true;
-                    break;
-                }
+        return isVehicleInList(vehiclesInParking, plateNumber);
+    }
+
+    private void addReportVehicle(List<Vehicle> vehicles, String plateNumber) {
+        for (Vehicle vehicle : vehicles) {
+            if (vehicle.getPlateNumber().equals(plateNumber)) {
+                vehicle.addReport();
             }
         }
-        return isInParking;
     }
 
     private void addReportOfficialVehicle(String plateNumber) {
         if (isOfficialVehicle(plateNumber)) {
-            for (Vehicle officialVehicle : officialVehicles) {
-                if (officialVehicle.getPlateNumber().equals(plateNumber)) {
-                    officialVehicle.addReport();
-                }
-            }
+            addReportVehicle(officialVehicles, plateNumber);
         }
     }
 
     private void addReportResidentVehicle(String plateNumber) {
         if (isResidentVehicle(plateNumber)) {
-            for (ResidentVehicle residentVehicle : residentVehicles) {
-                if (residentVehicle.getPlateNumber().equals(plateNumber)) {
-                    residentVehicle.addReport();
-                }
-            }
+            addReportVehicle(residentVehicles, plateNumber);
         }
     }
 
@@ -152,8 +130,8 @@ public class Parking {
 
     // Option 5
     private void restartVehicleMinutes() {
-        for (ResidentVehicle v : residentVehicles) {
-            v.setMinutesInParking(0);
+        for (Vehicle vehicle : residentVehicles) {
+            ((ResidentVehicle) vehicle).setMinutesInParking(0);
         }
     }
 

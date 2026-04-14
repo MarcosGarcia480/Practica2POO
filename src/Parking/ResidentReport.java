@@ -1,14 +1,16 @@
 package Parking;
 
 import Vehicles.ResidentVehicle;
+import Vehicles.Vehicle;
+
 import java.io.*;
 import java.util.List;
 import java.util.Scanner;
 
 public class ResidentReport {
-    private List<ResidentVehicle> vehicles;
+    private List<Vehicle> vehicles;
 
-    public ResidentReport(List<ResidentVehicle> vehicles) {
+    public ResidentReport(List<Vehicle> vehicles) {
         this.vehicles = vehicles;
     }
 
