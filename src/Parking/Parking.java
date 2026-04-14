@@ -48,23 +48,11 @@ public class Parking {
         return isVehicleInList(vehiclesInParking, plateNumber);
     }
 
-    private void addReportVehicle(List<Vehicle> vehicles, String plateNumber) {
+    private void reportVehicleEntry(List<Vehicle> vehicles, String plateNumber) {
         for (Vehicle vehicle : vehicles) {
             if (vehicle.getPlateNumber().equals(plateNumber)) {
                 vehicle.addReport();
             }
-        }
-    }
-
-    private void addReportOfficialVehicle(String plateNumber) {
-        if (isOfficialVehicle(plateNumber)) {
-            addReportVehicle(officialVehicles, plateNumber);
-        }
-    }
-
-    private void addReportResidentVehicle(String plateNumber) {
-        if (isResidentVehicle(plateNumber)) {
-            addReportVehicle(residentVehicles, plateNumber);
         }
     }
 
@@ -75,12 +63,12 @@ public class Parking {
             return;
         }
         if (isOfficialVehicle(plateNumber)) {
-            addReportOfficialVehicle(plateNumber);
+            reportVehicleEntry(officialVehicles, plateNumber);
             vehicle = new OfficialVehicle(plateNumber);
             System.out.println("This is an official vehicle.");
         }
         if (isResidentVehicle(plateNumber)) {
-            addReportResidentVehicle(plateNumber);
+            reportVehicleEntry(residentVehicles, plateNumber);
             vehicle = new ResidentVehicle(plateNumber);
             System.out.println("This is a resident vehicle.");
         }
@@ -89,12 +77,15 @@ public class Parking {
     }
 
     // Option 2
-    public void deleteVehicle(String plateNumber) {
-        if (vehiclesInParking.isEmpty()) {
-            System.out.println("The parking is already empty.");
-            return;
+    private void reportExitForSpecialVehicleLists(List<Vehicle> vehicles, String plateNumber) {
+        for (Vehicle vehicle : vehicles) {
+            if (vehicle.getPlateNumber().equals(plateNumber)) {
+                vehicle.reportExit();
+            }
         }
-        List<Vehicle> newVehicles = vehiclesInParking;
+    }
+
+    private void reportVehicleExit(String plateNumber, List<Vehicle> newVehicles) {
         String message = "";
         for (Vehicle vehicle : newVehicles) {
             if (vehicle.getPlateNumber().equals(plateNumber)) {
@@ -107,6 +98,22 @@ public class Parking {
             message = "Unidentified plate number, please try again.";
         }
         System.out.println(message);
+    }
+
+    public void deleteVehicle(String plateNumber) {
+        if (vehiclesInParking.isEmpty()) {
+            System.out.println("The parking is already empty.");
+            return;
+        }
+        List<Vehicle> newVehicles = vehiclesInParking;
+        if (isVehicleInParking(plateNumber)) {
+            if (isOfficialVehicle(plateNumber)) {
+                reportExitForSpecialVehicleLists(officialVehicles, plateNumber);
+            } else if (isResidentVehicle(plateNumber)) {
+                reportExitForSpecialVehicleLists(residentVehicles, plateNumber);
+            }
+            reportVehicleExit(plateNumber, newVehicles);
+        }
     }
 
     // Option 3
