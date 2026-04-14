@@ -2,7 +2,7 @@ package Vehicles;
 import java.util.*;
 
 public class Vehicle {
-    private String plateNumber;
+    private final String plateNumber;
     private List<Report> reports;
 
     public Vehicle(String plateNumber) {

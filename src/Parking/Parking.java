@@ -10,8 +10,8 @@ public class Parking {
     private ResidentReport residentReport;
 
     private Parking() {
-        officialVehicles = new ArrayList<Vehicle>();
-        residentVehicles = new ArrayList<Vehicle>();
+        officialVehicles = new ArrayList<>();
+        residentVehicles = new ArrayList<>();
         vehiclesInParking = new ArrayList<>();
         residentReport = new ResidentReport(residentVehicles);
     }
@@ -21,6 +21,7 @@ public class Parking {
         return instance;
     }
 
+    // Option 1
     private boolean isVehicleInList(List<Vehicle> vehicles, String plateNumber) {
         boolean isInList = false;
         if (vehicles.isEmpty()) {
@@ -35,7 +36,7 @@ public class Parking {
         }
         return isInList;
     }
-    // Option 1
+
     private boolean isOfficialVehicle(String plateNumber) {
         return isVehicleInList(officialVehicles, plateNumber);
     }
@@ -57,11 +58,11 @@ public class Parking {
     }
 
     public void addVehicle(String plateNumber) {
-        Vehicle vehicle = new NonResidentVehicle(plateNumber);
         if (isVehicleInParking(plateNumber)) {
             System.out.println("This vehicle is already in the parking.");
             return;
         }
+        Vehicle vehicle = new NonResidentVehicle(plateNumber);
         if (isOfficialVehicle(plateNumber)) {
             reportVehicleEntry(officialVehicles, plateNumber);
             vehicle = new OfficialVehicle(plateNumber);
