@@ -26,6 +26,6 @@ public class ResidentVehicle extends PayVehicle {
 
     @Override
     public String toString() {
-        return getPlateNumber() + "   " + minutesInParking + "   " + getTotalCost();
+        return getPlateNumber() + "            " + minutesInParking + "               " + getTotalCost();
     }
 }
