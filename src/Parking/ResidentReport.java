@@ -1,8 +1,6 @@
 package Parking;
 
-import Vehicles.ResidentVehicle;
 import Vehicles.Vehicle;
-
 import java.io.*;
 import java.util.List;
 import java.util.Scanner;
@@ -37,5 +35,4 @@ public class ResidentReport {
             }
         }
     }
-
 }
