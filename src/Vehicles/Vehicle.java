@@ -1,7 +1,7 @@
 package Vehicles;
 import java.util.*;
 
-public class Vehicle {
+public abstract class Vehicle {
     private final String plateNumber;
     private List<Report> reports;
 
